@@ -1,19 +1,43 @@
+plugins {
+    id 'com.android.application'
+}
+
 android {
-    // ... الإعدادات السابقة كما هي ...
+    namespace 'com.backup.restore.sh'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.backup.restore.sh"
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildFeatures {
+        aidl true 
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
 
     packaging {
         resources {
-            // تجاهل كل ملفات META-INF
+            // حل شامل لكل مشاكل التكرار التي واجهتنا
             excludes += 'META-INF/**'
-            
-            // تجاهل ملفات البروجارد المكررة
             excludes += 'proguard.txt'
-            
-            // حل مشكلة classes.jar المكرر (هذا هو السطر الجديد)
             excludes += 'classes.jar'
-            
-            // دمج ملفات الرخصة
             merges += 'META-INF/LICENSE*'
         }
     }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'com.google.android.material:material:1.12.0'
+    
+    // سحب المكتبات يدوياً من مجلد libs
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
 }
