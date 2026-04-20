@@ -10,8 +10,8 @@ android {
         applicationId "com.backup.restore.sh"
         minSdk 26
         targetSdk 35
-        versionCode 5
-        versionName "1.0.4"
+        versionCode 6
+        versionName "1.0.5"
     }
 
     buildFeatures {
@@ -22,9 +22,23 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
+
+    // هذا البلوك هو الحل السحري للخطأ الحالي
+    packaging {
+        resources {
+            // استبعاد ملفات التوثيق المكررة التي تسبب فشل البناء
+            excludes += 'index-files/**'
+            excludes += '**/index-files/**'
+            excludes += 'META-INF/DEPENDENCIES'
+            excludes += 'META-INF/NOTICE'
+            excludes += 'META-INF/LICENSE'
+            
+            // في حال وجود تعارض في الكود، اختر الملف الأول
+            pickFirsts += '**/classes.jar'
+        }
+    }
 }
 
-// تعريف المستودع المحلي داخل مجلد app
 repositories {
     google()
     mavenCentral()
@@ -37,10 +51,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
 
-    // استدعاء المكتبات المحلية (تأكد من تسمية الملفات في المجلد بهذه الأسماء تماماً)
+    // الاستدعاء المحلي للمكتبات
     implementation name: 'shizuku-api'
     implementation name: 'shizuku-provider'
     
-    // مكتبة تجاوز القيود (عن طريق الإنترنت)
     implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.1'
 }
