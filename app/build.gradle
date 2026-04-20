@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace 'backup.restore.sh'
+    namespace 'com.backup.restore.sh'
     compileSdk 35 // يفضل 35 حالياً لضمان أعلى استقرار
 
     defaultConfig {
