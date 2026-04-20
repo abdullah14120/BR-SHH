@@ -3,39 +3,22 @@ name: Build Android APK
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-      # 1. جلب الكود من المستودع
-      - name: Checkout Code
-        uses: actions/checkout@v4
-
-      # 2. إعداد جاوا (الإصدار 17 هو الأنسب لـ Gradle الحديث)
-      - name: Set up OpenJDK 17
-        uses: actions/setup-java@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
-
-      # 3. تثبيت Gradle يدوياً لتجنب خطأ الملف المفقود (Wrapper)
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+      - uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.13
-
-      # 4. بناء الـ APK (استخدمنا gradle بدلاً من ./gradlew)
-      - name: Build Debug APK
+      - name: Build
         run: gradle assembleDebug
-
-      # 5. رفع الـ APK الناتج ليكون جاهزاً للتحميل
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v4
         with:
-          name: BR-SHH-Debug-APK
+          name: BR-SHH-APK
           path: app/build/outputs/apk/debug/*.apk
-          retention-days: 3
