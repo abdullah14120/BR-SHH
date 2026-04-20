@@ -28,9 +28,13 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     
-    // تأكد من وجود هذه السطور الرسمية
-    implementation 'dev.rikka.shizuku:api:13.1.5'
-    implementation 'dev.rikka.shizuku:provider:13.1.5'
+    // استخدام الإصدار الصريح وإجبار Gradle على التحميل
+    implementation("dev.rikka.shizuku:api:13.1.5") {
+        isTransitive = true
+    }
+    implementation("dev.rikka.shizuku:provider:13.1.5") {
+        isTransitive = true
+    }
     
     implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.1'
 }
