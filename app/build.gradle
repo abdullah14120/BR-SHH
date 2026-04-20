@@ -3,8 +3,8 @@ plugins {
 }
 
 android {
-    namespace 'com.backup.restore.sh' // حافظ على اسم حزمتك
-    compileSdk 35 // إصدار مستقر جداً كما في المرجع
+    namespace 'com.backup.restore.sh'
+    compileSdk 35
 
     defaultConfig {
         applicationId "com.backup.restore.sh"
@@ -14,25 +14,29 @@ android {
         versionName "1.0"
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11 // المرجع يستخدم 11، سنلتزم به للاستقرار
-        targetCompatibility JavaVersion.VERSION_11
-    }
-    
+    // هذا الجزء هو ما ينقص Shizuku لكي تعمل!
     buildFeatures {
-        aidl true // ضروري جداً لـ Shizuku كما في كود Pixel
+        aidl true 
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+// إضافة المستودعات هنا لضمان رؤية المكتبات أثناء الترجمة
+repositories {
+    google()
+    mavenCentral()
 }
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     
-    // استخدام نفس إصدارات Shizuku والمكتبات المساعدة من المرجع
+    // إصدارات Shizuku المستقرة
     def shizuku_version = "13.1.5"
     implementation "dev.rikka.shizuku:api:$shizuku_version"
     implementation "dev.rikka.shizuku:provider:$shizuku_version"
-    
-    // إضافة هذه المكتبة (مهمة جداً للوصول للصلاحيات المخفية كما يفعل Pixel Patch)
-    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.1'
 }
