@@ -22,28 +22,18 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-
-    packaging {
-        resources {
-            // استبعاد الملفات الوصفية المكررة
-            excludes += 'META-INF/**'
-            excludes += '**/AndroidManifest.xml'
-            excludes += '**/R.txt'
-            excludes += '**/proguard.txt'
-            excludes += '**/aar-metadata.properties'
-            
-            // الحل السحري: بدلاً من الاستبعاد، نستخدم اختيار الملف الأول عند التكرار
-            pickFirsts += 'classes.jar'
-            pickFirsts += '**/classes.jar'
-        }
-    }
+    
+    // تم حذف بلوك packaging بالكامل بناءً على طلبك
 }
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     
-    // الربط المباشر مع ملفاتك
-    implementation files('libs/api-13.1.5.aar.jar')
+    // 1. المكتبة الأولى: تحميل تلقائي (Online)
+    implementation 'dev.rikka.shizuku:api:13.1.5'
+    
+    // 2. المكتبة الثانية: تحميل محلي (من مجلد libs)
+    // تأكد من وجود ملف provider-13.1.5.aar.jar فقط في مجلد libs
     implementation files('libs/provider-13.1.5.aar.jar')
 }
