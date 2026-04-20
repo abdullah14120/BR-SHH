@@ -22,18 +22,13 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    
-    // تم حذف بلوك packaging بالكامل بناءً على طلبك
 }
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     
-    // 1. المكتبة الأولى: تحميل تلقائي (Online)
+    // تحميل المكتبات رسمياً من الإنترنت (سيحل كل مشاكل الـ Symbols)
     implementation 'dev.rikka.shizuku:api:13.1.5'
-    
-    // 2. المكتبة الثانية: تحميل محلي (من مجلد libs)
-    // تأكد من وجود ملف provider-13.1.5.aar.jar فقط في مجلد libs
-    implementation files('libs/provider-13.1.5.aar.jar')
+    implementation 'dev.rikka.shizuku:provider:13.1.5'
 }
