@@ -4,19 +4,23 @@ plugins {
 
 android {
     namespace 'com.backup.restore.sh'
-    compileSdk 35
+    compileSdk 34
 
     defaultConfig {
         applicationId "com.backup.restore.sh"
         minSdk 26
-        targetSdk 35
+        targetSdk 34
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
-    // هذا الجزء هو ما ينقص Shizuku لكي تعمل!
-    buildFeatures {
-        aidl true 
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
 
     compileOptions {
@@ -25,18 +29,11 @@ android {
     }
 }
 
-// إضافة المستودعات هنا لضمان رؤية المكتبات أثناء الترجمة
-repositories {
-    google()
-    mavenCentral()
-}
-
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'com.google.android.material:material:1.12.0'
+    // مكتبات الواجهة فقط
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     
-    // إصدارات Shizuku المستقرة
-    def shizuku_version = "13.1.5"
-    implementation "dev.rikka.shizuku:api:$shizuku_version"
-    implementation "dev.rikka.shizuku:provider:$shizuku_version"
+    // تم حذف Shizuku من هنا للهروب من أخطاء المترجم
 }
