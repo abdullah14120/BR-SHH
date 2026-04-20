@@ -10,8 +10,8 @@ android {
         applicationId "com.backup.restore.sh"
         minSdk 26
         targetSdk 35
-        versionCode 4 // رفعنا الإصدار لتنظيف الكاش
-        versionName "1.0.3"
+        versionCode 5
+        versionName "1.0.4"
     }
 
     buildFeatures {
@@ -24,24 +24,23 @@ android {
     }
 }
 
-// أضف هذا البلوك هنا مباشرة لضمان رؤية المكتبات
+// تعريف المستودع المحلي داخل مجلد app
 repositories {
     google()
     mavenCentral()
-    maven { url 'https://jitpack.io' }
+    flatDir {
+        dirs 'libs'
+    }
 }
 
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
+
+    // استدعاء المكتبات المحلية (تأكد من تسمية الملفات في المجلد بهذه الأسماء تماماً)
+    implementation name: 'shizuku-api'
+    implementation name: 'shizuku-provider'
     
-    // سحب المكتبات مع تفعيل transitive بشكل سليم لـ Groovy
-    implementation('dev.rikka.shizuku:api:13.1.5') {
-        transitive = true
-    }
-    implementation('dev.rikka.shizuku:provider:13.1.5') {
-        transitive = true
-    }
-    
+    // مكتبة تجاوز القيود (عن طريق الإنترنت)
     implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.1'
 }
