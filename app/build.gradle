@@ -25,23 +25,16 @@ android {
 
     packaging {
         resources {
-            // استبعاد ملفات الوصف فقط لعدم التصادم
+            // استبعاد ملفات الوصف فقط (Metadata)
             excludes += 'META-INF/**'
             excludes += '**/AndroidManifest.xml'
             excludes += '**/R.txt'
             excludes += '**/proguard.txt'
             excludes += '**/aar-metadata.properties'
             
-            // ملاحظة: لم نضع classes.jar هنا لكي لا يختفي الكود
+            // هام: لا تضع classes.jar هنا أبداً
             merges += 'META-INF/LICENSE*'
         }
-    }
-}
-
-// إضافة هذا البلوك لتعريف مجلد libs كمستودع محلي
-repositories {
-    flatDir {
-        dirs 'libs'
     }
 }
 
@@ -49,7 +42,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     
-    // الربط المباشر مع الملفات المرفوعة يدوياً بأسماءها الحالية
+    // ربط يدوي صريح بالملفات كما تظهر في صورتك السابقة
     implementation files('libs/api-13.1.5.aar.jar')
     implementation files('libs/provider-13.1.5.aar.jar')
 }
