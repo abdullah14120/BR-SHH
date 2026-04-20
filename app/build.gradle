@@ -26,9 +26,11 @@ android {
     packaging {
         resources {
             excludes += 'META-INF/**'
-            excludes += 'proguard.txt'
-            excludes += 'classes.jar'
-            excludes += 'AndroidManifest.xml'
+            excludes += '**/AndroidManifest.xml'
+            excludes += '**/classes.jar'
+            excludes += '**/R.txt'
+            excludes += '**/proguard.txt'
+            excludes += '**/aar-metadata.properties'
             merges += 'META-INF/LICENSE*'
         }
     }
