@@ -1,75 +1,34 @@
 plugins {
     id 'com.android.application'
-    // id 'org.jetbrains.kotlin.android' // فك التعليق إذا كنت تستخدم كوتلن
 }
 
 android {
-    namespace 'com.backup.restore.sh'
-    compileSdk 35 // يفضل 35 حالياً لضمان أعلى استقرار
+    namespace 'com.backup.restore.sh' // تأكد من هذا المسار
+    compileSdk 35
 
     defaultConfig {
-        applicationId "backup.restore.sh"
-        minSdk 26 // متوافق مع Shizuku ومع أغلب الأجهزة الحالية
+        applicationId "com.backup.restore.sh"
+        minSdk 26
         targetSdk 35
-        versionCode 16
-        versionName "1.3.2"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        vectorDrawables {
-            useSupportLibrary true
-        }
+        versionCode 1
+        versionName "1.0"
     }
 
-    buildTypes {
-        release {
-            minifyEnabled true // تفعيل التشييد لتقليل حجم الـ APK
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
+    buildFeatures {
+        aidl true
     }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-
-    buildFeatures {
-        compose true
-        aidl true // ضروري جداً لعمل Shizuku
-        buildConfig true
-    }
-
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
-    }
-
-    packaging {
-        resources {
-            excludes += '/META-INF/{AL2.0,LGPL2.1}'
-            excludes += 'META-INF/DEPENDENCIES'
-            // لمنع تكرار الملفات الذي واجهناه سابقاً
-            pickFirsts += '**/classes.jar'
-        }
-    }
 }
 
 dependencies {
-    // 1. المكتبات الأساسية للنظام والواجهة
-    implementation 'androidx.core:core-ktx:1.15.0'
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
     
-    // 2. مكتبات Jetpack Compose (للواجهة الحديثة)
-    def compose_version = "1.7.5"
-    implementation "androidx.compose.ui:ui:$compose_version"
-    implementation "androidx.compose.material3:material3:1.3.1"
-    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
-    implementation 'androidx.activity:activity-compose:1.9.3'
-
-    // 3. Shizuku (المحرك الأساسي للصلاحيات)
-    def shizuku_version = "13.1.5"
-    implementation "dev.rikka.shizuku:api:$shizuku_version"
-    implementation "dev.rikka.shizuku:provider:$shizuku_version"
-
-    // 4. الوصول للدوال المخفية (ضروري للنسخ الاحتياطي المتقدم)
-    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.1'
+    // سحب رسمي ومستقر
+    implementation 'dev.rikka.shizuku:api:13.1.5'
+    implementation 'dev.rikka.shizuku:provider:13.1.5'
 }
