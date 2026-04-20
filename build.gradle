@@ -4,12 +4,13 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        // تأكد أن هذا الإصدار يتوافق مع بيئة العمل لديك
-        classpath 'com.android.tools.build:gradle:8.7.3' 
+        classpath 'com.android.tools.build:gradle:8.7.3'
     }
 }
 
-// هذا الملف الآن نظيف ولا يحتوي علىrepositories هنا
-task clean(type: Delete) {
-    delete rootProject.buildDir
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
 }
