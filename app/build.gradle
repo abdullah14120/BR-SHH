@@ -15,6 +15,7 @@ android {
     }
 
     buildFeatures {
+        // تفعيل AIDL ضروري جداً لعمل Shizuku
         aidl true 
     }
 
@@ -25,12 +26,14 @@ android {
 
     packaging {
         resources {
+            // استبعاد الملفات الوصفية التي تسبب تصادم عند استخدام aar.jar يدوياً
             excludes += 'META-INF/**'
             excludes += '**/AndroidManifest.xml'
-            excludes += '**/classes.jar'
             excludes += '**/R.txt'
             excludes += '**/proguard.txt'
             excludes += '**/aar-metadata.properties'
+            
+            // دمج ملفات التراخيص
             merges += 'META-INF/LICENSE*'
         }
     }
@@ -39,5 +42,8 @@ android {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.7.0'
     implementation 'com.google.android.material:material:1.12.0'
-    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    
+    // ربط ملفات المكتبة بالأسماء التي تظهر في مستودعك (libs) حالياً
+    implementation files('libs/api-13.1.5.aar.jar')
+    implementation files('libs/provider-13.1.5.aar.jar')
 }
