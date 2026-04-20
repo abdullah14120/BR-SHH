@@ -1,2 +1,23 @@
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+    // تم تغيير النمط لكي يقبل المستودعات المعرفة داخل ملف app/build.gradle
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        google()
+        mavenCentral()
+        // تعريف المسار هنا أيضاً كاحتياط لضمان وصول المترجم للمكتبات
+        flatDir {
+            dirs 'app/libs'
+        }
+    }
+}
+
 rootProject.name = "BR-SHH"
 include ':app'
