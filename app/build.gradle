@@ -1,5 +1,7 @@
 plugins {
     id 'com.android.application'
+    // إذا كنت تستخدم كوتلن، تأكد من وجود هذا السطر (اختياري حسب مشروعك)
+    // id 'org.jetbrains.kotlin.android' 
 }
 
 android {
@@ -25,29 +27,40 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
+        // رفع الإصدار ليتوافق مع أحدث مكتبات Compose و Shizuku
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
+
     buildFeatures {
         compose true
         aidl true
         buildConfig true
     }
+
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.0"
+        // تأكد أن هذا الإصدار يتوافق مع نسخة Kotlin في مشروعك
+        kotlinCompilerExtensionVersion = "1.5.1" 
     }
-    packagingOptions {
+
+    packaging {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
+            // إضافة حماية إضافية ضد التكرار
+            excludes += 'META-INF/DEPENDENCIES'
+            excludes += 'META-INF/INDEX.LIST'
+            excludes += '**/classes.jar'
         }
     }
 }
 
 dependencies {
     implementation 'androidx.test:monitor:1.8.0'
-    debugImplementation 'androidx.compose.ui:ui-tooling:1.9.3'
-    def compose_runtime_version = "1.9.3"
+    
+    // تعريف الإصدار الموحد للـ Compose لتجنب خطأ الـ Symbol
+    def compose_version = "1.7.5"
 
     implementation 'androidx.core:core-ktx:1.17.0'
     implementation 'androidx.appcompat:appcompat:1.7.1'
@@ -55,30 +68,31 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
 
     implementation 'androidx.activity:activity-compose:1.11.0'
-
     implementation "androidx.navigation:navigation-compose:2.9.5"
 
-    implementation "androidx.compose.runtime:runtime:$compose_runtime_version"
-    implementation "androidx.compose.runtime:runtime-livedata:$compose_runtime_version"
-    implementation "androidx.compose.runtime:runtime-rxjava2:$compose_runtime_version"
-
+    // استخدام المتغير الموحد
+    implementation "androidx.compose.runtime:runtime:$compose_version"
+    implementation "androidx.compose.runtime:runtime-livedata:$compose_version"
+    implementation "androidx.compose.runtime:runtime-rxjava2:$compose_version"
     implementation "androidx.compose.ui:ui:$compose_version"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 
-    implementation "androidx.compose.material:material:1.9.3"
-    implementation "androidx.compose.material:material-icons-core:1.7.8"
-    implementation "androidx.compose.material3:material3:1.4.0"
+    implementation "androidx.compose.material:material:1.7.5"
+    implementation "androidx.compose.material:material-icons-core:1.7.5"
+    implementation "androidx.compose.material3:material3:1.3.1"
 
     implementation "io.arrow-kt:arrow-core:2.1.2"
     implementation "io.arrow-kt:arrow-fx-coroutines:2.1.2"
 
     implementation "com.google.accompanist:accompanist-systemuicontroller:0.36.0"
 
+    // Shizuku - التحميل الرسمي (سيحل كل مشاكل الـ Symbols)
     def shizuku_version = "13.1.5"
     implementation "dev.rikka.shizuku:api:$shizuku_version"
     implementation "dev.rikka.shizuku:provider:$shizuku_version"
+    
     implementation 'com.anggrayudi:android-hidden-api:35.0'
-
     implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:6.1'
 
     implementation "com.github.kittinunf.fuel:fuel:2.3.1"
